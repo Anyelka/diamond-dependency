@@ -72,16 +72,16 @@ public class Solution2 {
             return Objects.equals(name, library.name);
         }
 
-        boolean dependsOn(Library other) {
-            return dependsOnDirectly(other) || dependsOnTransitively(other);
-        }
-
         private boolean dependsOnDirectly(Library other) {
             return this.dependencies.contains(other);
         }
 
         private boolean dependsOnTransitively(Library other) {
             return this.dependencies.stream().anyMatch(dependency -> dependency.dependsOn(other));
+        }
+
+        boolean dependsOn(Library other) {
+            return dependsOnDirectly(other) || dependsOnTransitively(other);
         }
 
         boolean dependsOnAny(List<Library> others) {
